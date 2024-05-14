@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class CarsService {
@@ -33,7 +33,8 @@ export class CarsService {
         return this.cars;
     }
     findById(id:number){
-        return this.cars.find(car => car.id == id);
+        const cars = this.cars.find(car => car.id == id);
+        return cars ? cars: new NotFoundException(`No se encontro el id  ${id}`);
     }
     
 }
